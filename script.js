@@ -4,7 +4,7 @@ const form = document.querySelector('form');
 const input = document.querySelector('#txtTaskName');
 const btnDeleteAll = document.querySelector('#btnDeleteAll');
 const taskList = document.querySelector('#task-list');
-const items = ['item 1', 'item 2', 'item 3', 'item 4'];
+let items;
 
 // load items
 loadItems();
@@ -24,10 +24,40 @@ function eventListeners() {
 }
 
 function loadItems() {
+    items = getItemsFromLS();
     items.forEach(function (item) {
         createItem(item);
-    })
+    });
 }
+
+// get items from Local Storage
+function getItemsFromLS(){
+    if(localStorage.getItem('items')===null){
+        items = [];
+    }else{
+        items = JSON.parse(localStorage.getItem('items'));
+    }
+    return items;
+}
+
+// set item to Local Storage
+function setItemToLS(text){
+    items = getItemsFromLS();
+    items.push(text);
+    localStorage.setItem('items',JSON.stringify(items));
+}
+
+// delete item from LS
+function deleteItemFromLS(text){
+    items = getItemsFromLS();
+    items.forEach(function(item,index){
+        if(item === text){
+            items.splice(index,1);   
+        }
+    });
+    localStorage.setItem('items',JSON.stringify(items));
+}
+
 
 function createItem(text) {
     // create li
@@ -58,6 +88,9 @@ function addNewItem(e) {
     // create item
     createItem(input.value);
 
+    // save to LS
+    setItemToLS(input.value);
+
     // clear input
     input.value = '';
 
@@ -70,6 +103,9 @@ function deleteItem(e) {
     if (e.target.className === 'fas fa-times') {
         if (confirm('are you sure ?')) {
             e.target.parentElement.parentElement.remove();
+
+            // delete item from LS
+            deleteItemFromLS(e.target.parentElement.parentElement.textContent);
         }
     }
     e.preventDefault();
@@ -80,11 +116,10 @@ function deleteAllItems(e) {
 
     if (confirm('are you sure ?')) {
         // taskList.innerHTML='';
-        taskList.childNodes.forEach(function (item) {
-            if (item.nodeType === 1) {
-                item.remove();
-            }
-        });
+        while(taskList.firstChild){
+            taskList.removeChild(taskList.firstChild);
+        }
+        localStorage.clear();
     }
     e.preventDefault();
 }
