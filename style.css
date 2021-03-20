@@ -1,7 +1,28 @@
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+    
+}
+body{
+    background-color: #FFE4E1;
+}
 a{
     color:white;
 }
 
 #header{
     font-size: 25px;
+    color: #6495ED;
+    text-align: center;
+}
+.card-header {
+    color: #8B0000;
+}
+#welcome{
+    text-align: center;
+}
+footer{
+    margin-bottom: -100px;
+    padding-bottom: -100px;
 }
