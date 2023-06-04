@@ -25,7 +25,7 @@ toDOApp is a simple web application for managing your tasks and to-do lists. It 
 
 ## Usage
 
-1. Open the [toDOApp](https://onurtufekci34.github.io/toDOApp/) in your web browser.
+1. Open the [toDOApp](https://kielertodoapp.netlify.app/) in your web browser.
 2. To add a new task, enter the task description in the input field and press Enter or click the "+" button.
 3. To edit a task, click on the task text and make the necessary changes.
 4. To mark a task as completed, click on the checkbox next to the task.
